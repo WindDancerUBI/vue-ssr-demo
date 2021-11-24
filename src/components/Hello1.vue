@@ -1,5 +1,5 @@
 <!--
- * @Descripttion: 路由组件hello
+ * @Descripttion: 路由组件hello1
  * @Author: huangjitao
  * @Date: 2021-11-09 20:28:25
  * @Function: 该文件用途描述
@@ -7,7 +7,7 @@
 
 <template>
   <div>
-    Hello, world -- 0
+    hello world -- 1!
   </div>
 </template>
 
@@ -17,6 +17,5 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss" scoped>
 </style>
