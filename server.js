@@ -1,5 +1,5 @@
 /*
- * @Descripttion: your project
+ * @Descripttion: 程序主入口
  * @Author: huangjitao
  * @Date: 2021-11-09 20:39:57
  * @Function: 该文件用途描述
@@ -21,18 +21,28 @@ const createRenderer = (bundle, options) => {
 
 let renderer, readyPromise
 const templatePath = resolve('./src/index.template.html')
-const bundle = require('./dist/vue-ssr-server-bundle.json')
-const clientManifest = require('./dist/vue-ssr-client-manifest.json')
-const template = fs.readFileSync(templatePath, 'utf-8')
+if (isProd) {
+  const bundle = require('./dist/vue-ssr-server-bundle.json')
+  const clientManifest = require('./dist/vue-ssr-client-manifest.json')
+  const template = fs.readFileSync(templatePath, 'utf-8')
 
-renderer = createRenderer(bundle, {
-  runInNewContext: false, // 推荐
-  template, // （可选）页面模板
-  clientManifest // （可选）客户端构建 manifest
-})
+  renderer = createRenderer(bundle, {
+    // 推荐
+    template, // （可选）页面模板
+    clientManifest // （可选）客户端构建 manifest
+  })
+} else {
+  // 开发模式
+  // 1. server -> bundle
+  // 2. client -> manifest
+  // 3. 待2个文件编译完成，就可以调用createBundleRenderer -> renderer -> renderToString -> Promise
+  // 1,2 -> setupServer -> webpack -> readyPromise -> 调用 createRender ->  创建renderer实例
+  readyPromise = require('./config/setup-dev-server')(app, templatePath, (bundle, options) => {
+    renderer = createRenderer(bundle, options)
+  })
+}
 
-// 在服务器处理函数中……
-app.get('*', (req, res) => {
+const render = (req, res) => {
   const context = {
     title: 'hello ssr with webpack',
     meta: `
@@ -55,6 +65,11 @@ app.get('*', (req, res) => {
       res.end(html)
     }
   })
+}
+
+// 在服务器处理函数中……
+app.get('*', isProd ? render : (req, res) => {
+  readyPromise.then(() => render(req, res))
 })
 
 app.listen(8080)

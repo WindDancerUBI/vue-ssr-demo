@@ -1,10 +1,3 @@
-/*
- * @Descripttion: your project
- * @Author: huangjitao
- * @Date: 2021-11-09 21:22:05
- * @Function: 该文件用途描述
- */
-
 const path = require('path')
 const { VueLoaderPlugin } = require('vue-loader')
 const resolve = (dir) => path.join(path.resolve(__dirname, "../"), dir)
