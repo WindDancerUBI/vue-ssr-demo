@@ -5040,6 +5040,11 @@ vuex-router-sync@^5.0.0:
   resolved "https://registry.npm.taobao.org/vuex-router-sync/download/vuex-router-sync-5.0.0.tgz#1a225c17a1dd9e2f74af0a1b2c62072e9492b305"
   integrity sha1-GiJcF6Hdni90rwobLGIHLpSSswU=
 
+vuex@^3.6.2:
+  version "3.6.2"
+  resolved "https://registry.nlark.com/vuex/download/vuex-3.6.2.tgz#236bc086a870c3ae79946f107f16de59d5895e71"
+  integrity sha1-I2vAhqhww655lG8QfxbeWdWJXnE=
+
 watchpack-chokidar2@^2.0.1:
   version "2.0.1"
   resolved "https://registry.nlark.com/watchpack-chokidar2/download/watchpack-chokidar2-2.0.1.tgz#38500072ee6ece66f3769936950ea1771be1c957"
